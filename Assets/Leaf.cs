@@ -21,7 +21,7 @@ public class Leaf
         scale = s;
     }
 
-    public bool Split(int level)
+    public bool Split()
     {
         if (Random.Range(0,100)<50)
         {
@@ -37,11 +37,9 @@ public class Leaf
         }
 
 
-        leftChild.Draw(level);
-        rightChild.Draw(level);
-        /*int l1width = Random.Range((int)(mapWidth * 0.1), (int)(mapWidth * 0.7));
-        left = new Leaf(0, 0, l1width, mapDepth, scale);
-        right = new Leaf(l1width, 0, (mapWidth - l1width), mapDepth, scale); */
+        //leftChild.Draw();
+        //rightChild.Draw();
+
         return true;
     }
 
