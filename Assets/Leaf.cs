@@ -9,8 +9,8 @@ public class Leaf
     int depth;
     int scale;
 
-    Leaf leftChild;
-    Leaf rightChild;
+    public Leaf leftChild;
+    public Leaf rightChild;
 
     public Leaf(int x, int z, int w, int d, int s)
     {
@@ -21,7 +21,7 @@ public class Leaf
         scale = s;
     }
 
-    public bool Split()
+    public bool Split(int level)
     {
         if (Random.Range(0,100)<50)
         {
@@ -37,22 +37,22 @@ public class Leaf
         }
 
 
-        leftChild.Draw();
-        rightChild.Draw();
+        leftChild.Draw(level);
+        rightChild.Draw(level);
         /*int l1width = Random.Range((int)(mapWidth * 0.1), (int)(mapWidth * 0.7));
         left = new Leaf(0, 0, l1width, mapDepth, scale);
         right = new Leaf(l1width, 0, (mapWidth - l1width), mapDepth, scale); */
         return true;
     }
 
-    public void Draw()
+    public void Draw(int level)
     {
         Color c = new Color(Random.Range(0, 1f), Random.Range(0, 1f), Random.Range(0, 1f));
         for (int x = xpos; x < width + xpos; x++)      
             for (int z = zpos; z < depth + zpos; z++)
             {
                 GameObject Cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                Cube.transform.position = new Vector3(x * scale, 0, z * scale);
+                Cube.transform.position = new Vector3(x * scale, level * 3, z * scale);
                 Cube.transform.localScale = new Vector3(scale, scale, scale);
                 Cube.GetComponent<Renderer>().material.SetColor("_Color", c);
             }
