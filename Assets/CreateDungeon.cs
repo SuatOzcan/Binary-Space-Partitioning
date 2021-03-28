@@ -59,7 +59,8 @@ public class CreateDungeon : MonoBehaviour
     void AddCorridors()
     {
         for (int i = 1; i < corridors.Count; i++)
-        {
+        {   
+            if((int)corridors[i].x == (int)corridors[i - 1].x || (int)corridors[i].y == (int)corridors[i - 1].y)
             Line((int)corridors[i].x, (int)corridors[i].y, (int)corridors[i - 1].x, (int)corridors[i-1].y);
         }
     }
