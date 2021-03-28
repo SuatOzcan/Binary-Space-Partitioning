@@ -68,9 +68,10 @@ public class Leaf
             }
         */
 
-        for (int x = xpos + 1; x < width +xpos - 1; x++)
+        int wallSize = Random.Range(1, 3);
+        for (int x = xpos + wallSize; x < width + xpos - wallSize; x++)
         {
-            for (int z = zpos + 1; z < depth+ zpos - 1; z++)
+            for (int z = zpos + wallSize; z < depth + zpos - wallSize; z++)
             {
                 map[x, z] = 0;
             }
