@@ -33,7 +33,27 @@ public class CreateDungeon : MonoBehaviour
            left.Draw();
            right.Draw();  */
         AddCorridors();
+        AddRandomCorridors(10);
         DrawMap();
+    }
+
+    void AddRandomCorridors(int numHalls)
+    {
+        for (int i = 0; i < numHalls; i++)
+        {
+            int startX = Random.Range(5, mapWidth - 5);
+            int startZ = Random.Range(5, mapDepth - 5);
+            int length = Random.Range(5, mapWidth);
+
+            if (Random.Range(0,500)<50)
+            {
+                Line(startX, startZ, length, startZ);
+            }
+            else
+            {
+                Line(startX, startZ, startX, length);
+            }
+        }
     }
 
     void BSP(Leaf l, int sDepth)
