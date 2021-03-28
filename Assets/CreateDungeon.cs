@@ -10,6 +10,7 @@ public class CreateDungeon : MonoBehaviour
     Leaf root;
 
     byte[,] map;
+
     // Start is called before the first frame update
     void Start()
     {

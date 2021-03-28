@@ -67,9 +67,9 @@ public class Leaf
                 Cube.GetComponent<Renderer>().material.SetColor("_Color", c);
             }
 
-        for (int x = xpos +1; x < width +xpos; x++)
+        for (int x = xpos + 1; x < width +xpos - 1; x++)
         {
-            for (int z = zpos; z < depth+zpos-1; z++)
+            for (int z = zpos + 1; z < depth+ zpos - 1; z++)
             {
                 map[x, z] = 0;
             }
