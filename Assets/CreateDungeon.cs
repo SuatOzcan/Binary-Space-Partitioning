@@ -111,7 +111,7 @@ public class CreateDungeon : MonoBehaviour
         int numerator = longest >> 1;
         for (int i = 0; i <= longest; i++)
         {
-            map[x, y] = 2;
+            map[x, y] = 0;
             numerator += shortest;
             if (!(numerator < longest))
             {

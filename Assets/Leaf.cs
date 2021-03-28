@@ -57,7 +57,7 @@ public class Leaf
 
     public void Draw(byte[,] map)
     {
-        Color c = new Color(Random.Range(0, 1f), Random.Range(0, 1f), Random.Range(0, 1f));
+        /* Color c = new Color(Random.Range(0, 1f), Random.Range(0, 1f), Random.Range(0, 1f));
         for (int x = xpos; x < width + xpos; x++)      
             for (int z = zpos; z < depth + zpos; z++)
             {
@@ -66,6 +66,7 @@ public class Leaf
                 Cube.transform.localScale = new Vector3(scale, scale, scale);
                 Cube.GetComponent<Renderer>().material.SetColor("_Color", c);
             }
+        */
 
         for (int x = xpos + 1; x < width +xpos - 1; x++)
         {
