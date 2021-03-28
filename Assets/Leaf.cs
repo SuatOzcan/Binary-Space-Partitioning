@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Leaf
-{   int xpos;
+{ int xpos;
     int zpos;
     int width;
     int depth;
@@ -26,7 +26,7 @@ public class Leaf
     public bool Split()
     {
         if (width <= roomMin || depth <= roomMin) return false;
-        bool splitHorizontal = Random.Range(0,100) > 50;
+        bool splitHorizontal = Random.Range(0, 100) > 50;
         if (width > depth && width / depth >= 1.2)
             splitHorizontal = false;
         else if (depth > width && depth / width >= 1.2)
@@ -43,7 +43,7 @@ public class Leaf
         }
         else
         {
-            int l1width = Random.Range(roomMin,max);
+            int l1width = Random.Range(roomMin, max);
             leftChild = new Leaf(xpos, zpos, l1width, depth, scale);
             rightChild = new Leaf(xpos + l1width, zpos, (width - l1width), depth, scale);
         }
@@ -55,16 +55,24 @@ public class Leaf
         return true;
     }
 
-    public void Draw(int level)
+    public void Draw(byte[,] map)
     {
         Color c = new Color(Random.Range(0, 1f), Random.Range(0, 1f), Random.Range(0, 1f));
         for (int x = xpos; x < width + xpos; x++)      
             for (int z = zpos; z < depth + zpos; z++)
             {
                 GameObject Cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                Cube.transform.position = new Vector3(x * scale, level * 3, z * scale);
+                Cube.transform.position = new Vector3(x * scale, 0, z * scale);
                 Cube.transform.localScale = new Vector3(scale, scale, scale);
                 Cube.GetComponent<Renderer>().material.SetColor("_Color", c);
             }
+
+        for (int x = xpos +1; x < width +xpos; x++)
+        {
+            for (int z = zpos; z < depth+zpos-1; z++)
+            {
+                map[x, z] = 0;
+            }
+        }
     }
 }
