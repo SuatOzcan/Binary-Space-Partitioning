@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Leaf
-{ int xpos;
-    int zpos;
-    int width;
-    int depth;
-    int scale;
+{   public int xpos;
+    public int zpos;
+    public int width;
+    public int depth;
+    public int scale;
 
     int roomMin = 5;
 

@@ -10,6 +10,7 @@ public class CreateDungeon : MonoBehaviour
     Leaf root;
 
     byte[,] map;
+    List<Vector2> corridors = new List<Vector2>();
 
     // Start is called before the first frame update
     void Start()
@@ -26,11 +27,12 @@ public class CreateDungeon : MonoBehaviour
      // root.Draw();
      // root.Split();
         BSP(root, 8);
-     /* int l1width = Random.Range((int)(mapWidth * 0.1), (int)(mapWidth * 0.7));
-        left = new Leaf(0, 0, l1width , mapDepth, scale);
-        right = new Leaf(l1width, 0, (mapWidth-l1width), mapDepth, scale);
-        left.Draw();
-        right.Draw();  */
+        /* int l1width = Random.Range((int)(mapWidth * 0.1), (int)(mapWidth * 0.7));
+           left = new Leaf(0, 0, l1width , mapDepth, scale);
+           right = new Leaf(l1width, 0, (mapWidth-l1width), mapDepth, scale);
+           left.Draw();
+           right.Draw();  */
+        AddCorridors();
         DrawMap();
     }
 
@@ -39,6 +41,7 @@ public class CreateDungeon : MonoBehaviour
         if (l == null) return;
         if (sDepth <= 0) {
             l.Draw(map);
+            corridors.Add(new Vector2(l.xpos + l.width / 2, l.zpos + l.depth / 2));
             return; 
         }
         if (l.Split())
@@ -49,6 +52,15 @@ public class CreateDungeon : MonoBehaviour
         else
         {
             l.Draw(map);
+            corridors.Add(new Vector2(l.xpos + l.width / 2, l.zpos + l.depth / 2));
+        }
+    }
+
+    void AddCorridors()
+    {
+        for (int i = 1; i < corridors.Count; i++)
+        {
+            Line((int)corridors[i].x, (int)corridors[i].y, (int)corridors[i - 1].x, (int)corridors[i-1].y);
         }
     }
 
@@ -64,6 +76,49 @@ public class CreateDungeon : MonoBehaviour
                     cube.transform.position = new Vector3(x * scale, 10, z * scale);
                     cube.transform.localScale = new Vector3(scale, scale, scale);
                 }
+                else if (map[x, z] == 2)
+                {
+                    GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                    cube.transform.position = new Vector3(x * scale, 10, z * scale);
+                    cube.transform.localScale = new Vector3(scale, scale, scale);
+                    cube.GetComponent<Renderer>().material.SetColor("_Color", new Color(1, 0, 0));
+                }
+            }
+        }
+    }
+
+    public void Line(int x, int y, int x2, int y2)
+    {
+        int w = x2 - x;
+        int h = y2 - y;
+        int dx1 = 0, dy1 = 0, dx2 = 0, dy2 = 0;
+        if (w < 0) dx1 = -1; else if (w > 0) dx1 = 1;
+        if (h < 0) dy1 = -1; else if (h > 0) dy1 = 1;
+        if (w < 0) dx2 = -1; else if (w > 0) dx2 = 1;
+        int longest = Mathf.Abs(w);
+        int shortest = Mathf.Abs(h);
+        if (!(longest > shortest))
+        {
+            longest = Mathf.Abs(h);
+            shortest = Mathf.Abs(w);
+            if (h < 0) dy2 = -1; else if (h > 0) dy2 = 1;
+            dx2 = 0;
+        }
+        int numerator = longest >> 1;
+        for (int i = 0; i <= longest; i++)
+        {
+            map[x, y] = 2;
+            numerator += shortest;
+            if (!(numerator < longest))
+            {
+                numerator -= longest;
+                x += dx1;
+                y += dy1;
+            }
+            else
+            {
+                x += dx2;
+                y += dy2;
             }
         }
     }
