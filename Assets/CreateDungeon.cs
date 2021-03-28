@@ -36,10 +36,10 @@ public class CreateDungeon : MonoBehaviour
             BSP(l.leftChild, sDepth - 1);
             BSP(l.rightChild, sDepth - 1);
         }
-      /*  else
+        else
         {
             l.Draw(0);
-        } */
+        }
     }
 
     // Update is called once per frame
